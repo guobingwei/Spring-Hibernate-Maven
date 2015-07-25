@@ -3,6 +3,8 @@
  */
 package com.phn.dao.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.hibernate.Query;
@@ -10,7 +12,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import com.phn.dao.IBaseDao;
 import com.phn.dao.IUserDao;
+import com.phn.model.AboutMe;
 import com.phn.model.UserEntity;
 
 /**
@@ -21,20 +25,10 @@ import com.phn.model.UserEntity;
 public class UserDaoImpl implements IUserDao {
 	// extends BaseDaoImpl<UserEntity, Integer>
 	@Resource
-	protected SessionFactory sessionFactory;
-
-
-	public Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	
+	public IBaseDao baseDao;
 	@Override
 	public boolean isExist(UserEntity user) {
-		Session session = this.getSession();
+		Session session = baseDao.getSession();
 		String hql = "from UserEntity where username =? and password = ?";
 		Query query = session.createQuery(hql);
 		query.setString(0, user.getUsername());
@@ -43,6 +37,20 @@ public class UserDaoImpl implements IUserDao {
 			return true;
 		}
 		return false;
+	}
+
+	/* 
+	 * 查询登录用户信息
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AboutMe> userInfo() {
+		List<AboutMe> list = null;
+		Session session = baseDao.getSession();
+		String hql = "from AboutMe";
+		Query query = session.createQuery(hql);
+		list = query.list();
+		return list;
 	}
 
 
