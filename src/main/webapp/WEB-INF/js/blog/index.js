@@ -52,7 +52,7 @@ function getUserInfo() {
 		}) 
 		$("#usrInfo").html(blogContent);
 		var img = data[0].headImage;
-		$("#usrInfo a").css("background", "url(img)");
+		$("#usrInfo a").css("background", 'url("' + img + '")');
 	}
 	ajaxobj.sendRequest();
 	
