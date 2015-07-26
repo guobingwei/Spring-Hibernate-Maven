@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 /**
  * @author Administrator
  */
@@ -26,7 +28,7 @@ public class AboutMe {
 	private String screenName;  //网名
 	private String occupation;  //职业
 	private String location;  	//籍贯
-	private Integer phone;   	//电话号码
+	private String phone;   	//电话号码
 	private String email;		//邮箱
 	private String headImage;	//头像
 	private String tureName;	//真实姓名
@@ -43,6 +45,7 @@ public class AboutMe {
 	
 	@OneToOne(optional = false)
 	@JoinColumn(name="id", unique=true, nullable=false)
+	@JsonIgnore
 	public BlogElement getblogElementId() {
 		return blogElementId;
 	}
@@ -86,10 +89,10 @@ public class AboutMe {
 		this.location = location;
 	}
 	@Column(name = "tb_phone", nullable = false, length = 11)
-	public Integer getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(Integer phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	@Column(name = "tb_email",  length = 32)

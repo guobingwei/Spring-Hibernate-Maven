@@ -12,6 +12,7 @@ $(document).ready(function() {
 	
 	ajaxobj.AfterRequest = function() {
 		indexInit(ajaxobj.backdata);
+		getUserInfo() ;
 	}
 	ajaxobj.sendRequest();
 });
@@ -31,4 +32,32 @@ function indexInit(data) {
 	}
 	$("#blogList").html(blogContent);
 }
+
+/**
+ * 获取登录用户信息
+ */
+function getUserInfo() {
+	var data = {};
+	var ajaxobj = new AjaxObj();
+	ajaxobj.url = "../user/userInfo.do";
+	ajaxobj.data = data;
+	ajaxobj.type = "GET";
+	
+	ajaxobj.AfterRequest = function() {
+		var data = ajaxobj.backdata.userInfo;
+		var blogTemplate = $("#usrInfo").html();
+		var blogContent = '';
+		data.forEach(function(obj){
+			blogContent += blogTemplate.temp(obj)
+		}) 
+		$("#usrInfo").html(blogContent);
+		var img = data[0].headImage;
+		$("#usrInfo a").css("background", "url(img)");
+	}
+	ajaxobj.sendRequest();
+	
+	
+}
+
+
 

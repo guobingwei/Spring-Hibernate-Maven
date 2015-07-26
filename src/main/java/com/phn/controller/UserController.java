@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,9 +42,12 @@ public class UserController{
 	}
 	@ResponseBody
 	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-	public List<AboutMe> userInfo() {
+	public Map<String, Object> userInfo() {
+		Map<String, Object> map = new HashMap<String, Object>();
 		List<AboutMe> list = new ArrayList<AboutMe>();
 		list = userService.userInfo();
-		return list;
+		map.put("userInfo", list);
+		map.put("successCode", SUCCEECODE);
+		return map;
 	}
 }
