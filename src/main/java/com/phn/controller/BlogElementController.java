@@ -36,7 +36,7 @@ public class BlogElementController {
 		List<BlogElement> list = new ArrayList<BlogElement>();
 		list = blogElementService.blogElementList();
 		map.put("BlogElement", list);
-		map.put("succeesscode", SUCCEECODE);
+		map.put("SUCCEESSCODE", SUCCEECODE);
 		return map;
 	}
 }
