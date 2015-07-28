@@ -13,6 +13,7 @@ $(document).ready(function() {
 	ajaxobj.AfterRequest = function() {
 		indexInit(ajaxobj.backdata);
 		getUserInfo() ;
+		getBlogElement();
 	}
 	ajaxobj.sendRequest();
 });
@@ -56,8 +57,37 @@ function getUserInfo() {
 	}
 	ajaxobj.sendRequest();
 	
-	
 }
-
+/**
+ * 获取blogElement
+ */
+function getBlogElement() {
+	var data = {};
+	var ajaxobj = new AjaxObj();
+	ajaxobj.url = "../blogElement/blogElementList.do";
+	ajaxobj.data = data;
+	ajaxobj.type = "GET";
+	ajaxobj.AfterRequest = function() {
+		var data = ajaxobj.backdata.BlogElement;
+		var blogTemplate = $("#title").html();
+		var blogContent = '';
+		data.forEach(function(obj){
+			blogContent += blogTemplate.temp(obj)
+		}) 
+		$("#title").html(blogContent);
+		
+		var blogTemplate = $("#words").html();
+		var blogContent = '';
+		data.forEach(function(obj){
+			blogContent += blogTemplate.temp(obj)
+		}) 
+		$("#words").html(blogContent);
+		
+		//图片
+		var imgUrl = data[0].homeImage;
+		$("#words").css("background", 'url("' + imgUrl + '")');
+	}
+	ajaxobj.sendRequest();
+}
 
 
