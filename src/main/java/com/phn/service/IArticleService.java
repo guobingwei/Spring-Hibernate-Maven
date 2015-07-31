@@ -12,5 +12,14 @@ import com.phn.model.Article;
  */
 public interface IArticleService {
 
-	public List<Article> ArticleList() ;
+	public List<Article> ArticleList(int page) ;
+	public List<Article> latestArticleList();
+	public List<Article> recommentArticleList();
+	
+	/**
+	 * @param articleId
+	 * @param pageNum
+	 * @return
+	 */
+	public List<Article> articleList(int articleId, int pageNum);
 }

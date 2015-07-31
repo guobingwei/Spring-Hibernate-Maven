@@ -14,6 +14,8 @@ $(document).ready(function() {
 		indexInit(ajaxobj.backdata);
 		getUserInfo() ;
 		getBlogElement();
+		recommentArticleList();
+		latestArticleList();
 	}
 	ajaxobj.sendRequest();
 });
@@ -89,5 +91,44 @@ function getBlogElement() {
 	}
 	ajaxobj.sendRequest();
 }
-
+/**
+ * 获取推荐文章列表
+ */
+function recommentArticleList() {
+	var data = {};
+	var ajaxobj = new AjaxObj();
+	ajaxobj.url = "../article/recommentArticleList.do";
+	ajaxobj.data = data;
+	ajaxobj.type = "GET";
+	ajaxobj.AfterRequest = function() {
+		var data = ajaxobj.backdata.recommentArticleList;
+		var blogTemplate = $("#recommentTitle").html();
+		var blogContent = '';
+		data.forEach(function(obj){
+			blogContent += blogTemplate.temp(obj)
+		}) 
+		$("#recommentTitle").html(blogContent);
+	}
+	ajaxobj.sendRequest();
+}
+/**
+ * 获取最新文章列表
+ */
+function latestArticleList() {
+	var data = {};
+	var ajaxobj = new AjaxObj();
+	ajaxobj.url = "../article/latestArticleList.do";
+	ajaxobj.data = data;
+	ajaxobj.type = "GET";
+	ajaxobj.AfterRequest = function() {
+		var data = ajaxobj.backdata.latestArticleList;
+		var blogTemplate = $("#latestTitle").html();
+		var blogContent = '';
+		data.forEach(function(obj){
+			blogContent += blogTemplate.temp(obj)
+		}) 
+		$("#latestTitle").html(blogContent);
+	}
+	ajaxobj.sendRequest();
+}
 
